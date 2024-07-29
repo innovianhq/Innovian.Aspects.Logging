@@ -15,7 +15,7 @@ public sealed class Fabric : TransitiveProjectFabric
     {
         amender.SelectMany(p => p.Types)
             .Where(t => t.Methods.Count > 0) //Should have at least one method to decorate or no point
-            //.Where(t => t.BaseType?.Name != "Workflow") //Should not log within Dapr Workflow instances
+            .Where(t => t.BaseType?.Name != "Workflow") //Should not log within Dapr Workflow instances
             .AddAspectIfEligible<InjectLoggerAttribute>();
     }
 }

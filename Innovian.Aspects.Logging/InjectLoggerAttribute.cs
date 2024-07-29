@@ -18,33 +18,40 @@ public sealed class InjectLoggerAttribute : TypeAspect
             //Must be explicitly declared
             _ => builder.MustBeExplicitlyDeclared(),
             //Must not be static
-            _ => builder.MustSatisfy(t => !t.IsStatic, n => $"The method cannot be static"),
+            _ => builder.MustSatisfy(t => !t.IsStatic, n => $"{n} cannot be static"),
             //Must not be a record type
-            _ => builder.DeclaringType().MustSatisfy(t => t.TypeKind is not (TypeKind.RecordStruct or TypeKind.RecordClass),
-                x => $"The declaring type must not be a record"));
+            _ => builder.DeclaringType().MustSatisfy(
+                t => t.TypeKind is not (TypeKind.RecordStruct or TypeKind.RecordClass),
+                x => $"{x} must not be a record"));
     }
 
     /// <inheritdoc />
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
-        //Introduce the field to the type
-        var loggerTypeFactory = (INamedType)TypeFactory.GetType(typeof(ILogger));
-        builder.Advice.IntroduceField(
-            builder.Target,
-            "_logger",
-            loggerTypeFactory,
-            IntroductionScope.Instance,
-            whenExists: OverrideStrategy.Ignore,
-            buildField: b =>
-            {
-                b.Accessibility = Accessibility.Private;
-                b.Writeability = Writeability.ConstructorOnly;
-            });
-
-        //If only a default (implicit) constructor, explicitly add one so we can decorate it with the attribute later
-        if (builder.Target.HasDefaultConstructor)
+        //Only apply the ILogger field if it doesn't already exist on the type
+        //Can't put this in eligibility since this aspect is responsible for chaining the other two aspects as well below
+        if (!builder.Target.AllFieldsAndProperties.Any(fp => fp.Name == "_logger" && fp.Type.Is(typeof(ILogger))))
         {
-            builder.Advice.IntroduceConstructor(builder.Target, nameof(TypeConstructorTemplate));
+
+            //Introduce the field to the type
+            var loggerTypeFactory = (INamedType)TypeFactory.GetType(typeof(ILogger));
+            builder.Advice.IntroduceField(
+                builder.Target,
+                "_logger",
+                loggerTypeFactory,
+                IntroductionScope.Instance,
+                whenExists: OverrideStrategy.Ignore,
+                buildField: b =>
+                {
+                    b.Accessibility = Accessibility.Private;
+                    b.Writeability = Writeability.ConstructorOnly;
+                });
+
+            //If only a default (implicit) constructor, explicitly add one so we can decorate it with the attribute later
+            if (builder.Target.HasDefaultConstructor)
+            {
+                builder.Advice.IntroduceConstructor(builder.Target, nameof(TypeConstructorTemplate));
+            }
         }
 
         builder.Outbound.SelectMany(a => a.Constructors)

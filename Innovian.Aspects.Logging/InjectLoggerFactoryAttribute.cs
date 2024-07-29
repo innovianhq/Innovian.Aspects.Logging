@@ -24,10 +24,7 @@ public sealed class InjectLoggerFactoryAttribute : ConstructorAspect
             _ => builder.MustSatisfy(t => !t.IsStatic, n => $"The method cannot be static"),
             //Must not be a record type
             _ => builder.DeclaringType().MustSatisfy(t => t.TypeKind is not (TypeKind.RecordStruct or TypeKind.RecordClass),
-                x => $"The declaring type must not be a record"),
-            _ => builder.DeclaringType()
-                .MustSatisfy(t => t.AllFieldsAndProperties.All(fp => fp.Name != "_logger" && !fp.Type.Is(typeof(ILogger))),
-                    _ => $"The field _logger of type ILogger cannot already exist in the type"));
+                x => $"The declaring type must not be a record"));
     }
 
     public override void BuildAspect(IAspectBuilder<IConstructor> builder)
