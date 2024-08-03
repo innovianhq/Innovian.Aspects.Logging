@@ -8,9 +8,14 @@
 		<Company>Innovian</Company>
 		<Authors>Whit Waldo</Authors>
 		<Copyright>2024 Innovian Corporation</Copyright>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/innovianhq/Innovian.Aspects.Logging</PackageProjectUrl>
 		<Description>A Metalama-based aspect designed to inject and provide automatic method logging for projects using Microsoft.Extensions.Logging and ILoggerFactory/ILogger.</Description>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Metalama.Framework" Version="2024.2.18" />
