@@ -1,5 +1,7 @@
-<a align="center" href="https://innovian.net">
-	<img src="https://innovian.net/img/bluelogo.svg" width="100px"/>
+<a href="https://innovian.net">
+	<p align="center">
+		<img src="https://innovian.net/img/bluelogo.svg" width="100px"/>
+	</p>
 </a>
 
 # Innovian.Aspects.Logging
