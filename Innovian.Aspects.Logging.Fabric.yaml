@@ -8,6 +8,7 @@ trigger:
   paths:
     include:
       - /Innovian.Aspects.Logging
+      - /Innovian.Aspects.Logging.Fabric
       - /Innovian.Aspects.Logging.Testing
 
 pool: AzureBuildServers
@@ -19,7 +20,7 @@ variables:
   - name: BuildNumber
     value: $(Build.BuildNumber)
   - name: ProjectName
-    value: Innovian.Aspects.Logging
+    value: Innovian.Aspects.Logging.Fabric
 
 steps:
 - task: UseDotNet@2
