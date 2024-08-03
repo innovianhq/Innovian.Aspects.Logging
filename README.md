@@ -1,8 +1,8 @@
 # Innovian.Aspects.Logging
 [![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2Finnovianhq.Innovian.Aspects.Logging?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=334&branchName=main)
 
-<p align="center" width="50">
-	<img src="https://innovian.net/img/bluelogo.svg" />
+<p align="center">
+	<img src="https://innovian.net/img/bluelogo.svg" width="50px"/>
 </p>
 
 This is an aspect implemented using [Metalama](https://github.com/postsharp/Metalama) targeting .NET 8 that provides logging capabilities to projects targeting `Microsoft.Extensions.Logging` using `ILoggerFactory` and/or `ILogger`. This project 
