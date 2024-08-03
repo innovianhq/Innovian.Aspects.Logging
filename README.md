@@ -1,7 +1,7 @@
 # Innovian.Aspects.Logging
 [![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2Finnovianhq.Innovian.Aspects.Logging?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=334&branchName=main)
 
-<p align="center" style="width: 50px; height: 50px">
+<p align="center" width="50">
 	<img src="https://innovian.net/img/bluelogo.svg" />
 </p>
 
