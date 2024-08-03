@@ -82,4 +82,7 @@ will perform the code generation functionality described above.
 The fabric will only install to classes that have at least one method as there's little point to it being on the class otherwise.
 
 Further, ecause we at Innovian also build functionality around [Dapr Workflows](https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-overview/) and the `Workflow` base type requires parameterless constructors, the fabric will
-also neglect to apply to any type that implements an abstract base type called "Workflow". 
+also neglect to apply to any type that implements an abstract base type called "Workflow".
+
+Finally, the two projects, `Innovian.Aspects.Logging` and `Innovian.Apsects.Logging.Fabric` are built independently of one another and do not
+take a dependency on each other's NuGet packages. It's highly recommended that you install one or the other and not both to your various projects.
