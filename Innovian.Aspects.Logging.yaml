@@ -55,16 +55,9 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'BuildNumber'
 
-- task: PowerShell@2
-  displayName: 'Install nuget'
+- task: NuGetCommand@2
   inputs:
-    targetType: 'inline'
-    script: 'Install-Package NuGet.CommandLine'
-
-- task: PowerShell@2
-  displayName: 'push to NuGet.org'
-  inputs:
-    targetType: 'inline'
-    script: 'nuget push "$(Build.ArtifactStagingDirectory)\*.nupkg" -ApiKey $(NuGetApiKey) -Source https://api.nuget.org/v3/index.json'
-  env:
-    NuGetApiKey: $(NuGetApiKey)
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'InnovianNuget'
