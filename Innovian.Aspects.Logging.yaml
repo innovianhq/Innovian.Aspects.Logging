@@ -56,6 +56,12 @@ steps:
     versionEnvVar: 'BuildNumber'
 
 - task: PowerShell@2
+  displayName: 'Install nuget'
+  inputs:
+    targetType: 'inline'
+    script: 'Install-Package NuGet.CommandLine'
+
+- task: PowerShell@2
   displayName: 'push to NuGet.org'
   inputs:
     targetType: 'inline'
