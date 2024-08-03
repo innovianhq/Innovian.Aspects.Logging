@@ -1,6 +1,6 @@
-<p align="center">
+<a align="center" href="https://innovian.net">
 	<img src="https://innovian.net/img/bluelogo.svg" width="100px"/>
-</p>
+</a>
 
 # Innovian.Aspects.Logging
 [![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2Finnovianhq.Innovian.Aspects.Logging?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=334&branchName=main) [![NuGet](https://img.shields.io/nuget/v/Innovian.Aspects.Logging.svg)](https://www.nuget.org/packages/Innovian.Aspects.Logging/)
