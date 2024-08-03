@@ -10,7 +10,9 @@
 #### Innovian.Aspects.Logging.Fabric 
 [![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2FInnovian.Aspects.Logging.Fabric?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=335&branchName=main) [![NuGet](https://img.shields.io/nuget/v/Innovian.Aspects.Logging.Fabric.svg)](https://www.nuget.org/packages/Innovian.Aspects.Logging.Fabric/)
 
-This project implements an aspect using [Metalama](https://github.com/postsharp/Metalama) targeting .NET 8 that provides logging capabilities to projects targeting `Microsoft.Extensions.Logging` using `ILoggerFactory` and/or `ILogger`. This project 
+This project is provided to the larger open-source community by [Innovian](https://innovian.net).
+
+This solution implements an aspect using [Metalama](https://github.com/postsharp/Metalama) targeting .NET 8 that provides logging capabilities to projects targeting `Microsoft.Extensions.Logging` using `ILoggerFactory` and/or `ILogger`. This project 
 includes a single aspect intended for direct use, `InjectLoggerAttribute` (intended to be applied to a class) and a fabric that automatically applies this attribute to every non-static class and non-static method across whatever project that 
 targets it.
 
@@ -19,8 +21,6 @@ The attribute performs the following:
 - Injects an optional instance of `ILoggerFactory` into all constructors of an eligible class
 - Injects and instantiates an `ILogger` as a private field on the class from the `ILoggerFactory` or from a `NullLoggerFactory` instance if the injected `ILoggerFactory` is null
 - Creates a stopwatch in each method that times and records, via the `ILogger` field, how long it takes a given method to execute
-
-This project is provided to the larger open-source community by [Innovian](https://innovian.net).
 
 ## Direct usage of the attribute
 The following instructions detail how to use the `InjectLoggerAttribute` directly in those project. It's intended to be applied as an attribute to any classes (not records) in your project and will automatically apply the other attributes
