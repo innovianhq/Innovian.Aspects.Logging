@@ -11,7 +11,9 @@ trigger:
       - /Innovian.Aspects.Logging.Fabric
       - /Innovian.Aspects.Logging.Testing
 
-pool: AzureBuildServers
+pool: 
+  name: AzureBuildServers
+  demands: Agent.OS -equals Windows_NT
 
 workspace:
   clean: all
