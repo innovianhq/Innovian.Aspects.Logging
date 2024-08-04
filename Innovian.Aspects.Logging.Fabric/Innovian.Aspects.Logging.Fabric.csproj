@@ -11,6 +11,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/innovianhq/Innovian.Aspects.Logging</PackageProjectUrl>
 		<Description>A Metalama-based aspect fabric designed to inject and provide automatic method logging for projects using Microsoft.Extensions.Logging and ILoggerFactory/ILogger.</Description>
+		<Tags>Metalama ILogger Logging ILoggerFactory Aspects Innovian</Tags>
 	</PropertyGroup>
 
 	<ItemGroup>
