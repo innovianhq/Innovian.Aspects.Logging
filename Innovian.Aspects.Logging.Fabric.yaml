@@ -12,7 +12,7 @@ trigger:
       - /Innovian.Aspects.Logging.Testing
 variables:
   - name: Version
-    value: "$(date:yyyy.MM.dd).$(Build.BuildNumber)"
+    value: $(Build.BuildNumber)
 stages:
 - stage: Build
   jobs:
