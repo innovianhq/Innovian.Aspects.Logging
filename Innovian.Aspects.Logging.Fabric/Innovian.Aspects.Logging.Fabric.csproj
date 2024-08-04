@@ -9,13 +9,21 @@
 		<Authors>Whit Waldo</Authors>
 		<Copyright>2024 Innovian Corporation</Copyright>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/innovianhq/Innovian.Aspects.Logging</PackageProjectUrl>
 		<Description>A Metalama-based aspect fabric designed to inject and provide automatic method logging for projects using Microsoft.Extensions.Logging and ILoggerFactory/ILogger.</Description>
 		<Tags>Metalama ILogger Logging ILoggerFactory Aspects Innovian</Tags>
+		<PackageIcon>InnovianLogo_NugetIcon.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Innovian.Aspects.Logging\Innovian.Aspects.Logging.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE" Pack="true" PackagePath="/"/>
+		<None Include="..\README.md" Pack="true" PackagePath="/"/>
+		<None Update="InnovianLogo_NugetIcon.png" Pack="true" PackagePath="/" />
 	</ItemGroup>
 
 	<ItemGroup>
