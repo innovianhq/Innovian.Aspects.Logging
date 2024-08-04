@@ -112,45 +112,53 @@ stages:
 - stage: Deployment
   dependsOn: Build
   jobs:
-  - deployment: NugetDeployment
-    displayName: "Deploying Aspect and Fabric to NuGet"
+  - deployment: LoggingAspectNugetDeployment
+    displayName: "Deploying Logging Aspect to NuGet"
     environment: "Public NuGet"
+    workspace:
+      clean: all
     pool: 
       name: AzureBuildServers
-      demands: Agent.OS -equals Windows_NT
-  - job:
-    displayName: Deploying Logging Aspect to NuGet
+      #demands: Agent.OS -equals Windows_NT
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@1
+              inputs:
+                buildType: 'current'
+                downloadType: 'single'
+                artifactName: 'drop-aspect'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            - task: NuGetCommand@2
+              displayName: 'Push to NuGet.org'
+              inputs:
+                command: 'push'
+                packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg'
+                nuGetFeedType: 'external'
+                publishFeedCredentials: 'InnovianNuget'
+  - deployment: LoggingFabricNugetDeployment
+    displayName: "Deploying Fabric Aspect to NuGet"
+    environment: "Public NuGet"
     workspace:
       clean: all
-    steps:
-    - task: DownloadBuildArtifacts@1
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'drop-aspect'
-        downloadPath: '$(System.ArtifactsDirectory)'
-    - task: NuGetCommand@2
-      displayName: 'Push to NuGet.org'
-      inputs:
-        command: 'push'
-        packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg'
-        nuGetFeedType: 'external'
-        publishFeedCredentials: 'InnovianNuget'
-  - job:
-    displayName: Deploying Logging Fabric to NuGet
-    workspace:
-      clean: all
-    steps:
-    - task: DownloadBuildArtifacts@1
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'drop-fabric'
-        downloadPath: '$(System.ArtifactsDirectory)'
-    - task: NuGetCommand@2
-      displayName: 'Push to NuGet.org'
-      inputs:
-        command: 'push'
-        packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg'
-        nuGetFeedType: 'external'
-        publishFeedCredentials: 'InnovianNuget'
+    pool: 
+      name: AzureBuildServers
+      #demands: Agent.OS -equals Windows_NT
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@1
+              inputs:
+                buildType: 'current'
+                downloadType: 'single'
+                artifactName: 'drop-fabric'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            - task: NuGetCommand@2
+              displayName: 'Push to NuGet.org'
+              inputs:
+                command: 'push'
+                packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg'
+                nuGetFeedType: 'external'
+                publishFeedCredentials: 'InnovianNuget'
