@@ -21,7 +21,7 @@ stages:
       clean: all
     pool: 
       name: AzureBuildServers
-      demands: Agent.OS -equals Windows_NT
+      #demands: Agent.OS -equals Windows_NT
     variables:
       ProjectName: Innovian.Aspects.Logging
     steps:
@@ -68,7 +68,7 @@ stages:
       clean: all
     pool: 
       name: AzureBuildServers
-      demands: Agent.OS -equals Windows_NT
+      #demands: Agent.OS -equals Windows_NT
     variables:
       ProjectName: Innovian.Aspects.Logging.Fabric
     steps:
@@ -119,7 +119,7 @@ stages:
       clean: all
     pool: 
       name: AzureBuildServers
-      #demands: Agent.OS -equals Windows_NT
+      demands: Agent.OS -equals Windows_NT
     strategy:
       runOnce:
         deploy:
@@ -144,7 +144,7 @@ stages:
       clean: all
     pool: 
       name: AzureBuildServers
-      #demands: Agent.OS -equals Windows_NT
+      demands: Agent.OS -equals Windows_NT
     strategy:
       runOnce:
         deploy:
