@@ -8,7 +8,6 @@ resources:
 variables:
   - name: Version
     value: $(resources.pipeline.AspectPipeline.variables.Version)
-    
 stages:
 - stage: Build
   jobs:
