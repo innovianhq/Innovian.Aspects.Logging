@@ -5,9 +5,6 @@ resources:
     - pipeline: AspectPipeline
       source: Innovian.Aspects.Logging.Fabric
       trigger: true
-variables:
-  - name: Version
-    value: $(resources.pipeline.AspectPipeline.variables.Version)
 stages:
 - stage: Build
   jobs:
@@ -22,6 +19,8 @@ stages:
       value: $(Build.BuildNumber)
     - name: ProjectName
       value: Innovian.Aspects.Logging
+    - name: Version
+      value: $(resources.pipeline.AspectPipeline.variables.Version)
     steps:
     - task: UseDotNet@2
       inputs:
@@ -54,7 +53,7 @@ stages:
         command: 'pack'
         packagesToPack: '**/$(ProjectName).csproj'
         versioningScheme: 'byEnvVar'
-        versionEnvVar: 'BuildNumber'
+        versionEnvVar: 'Version'
 - stage: Deployment
   dependsOn: Build
   jobs:
