@@ -10,9 +10,13 @@ trigger:
       - /Innovian.Aspects.Logging
       - /Innovian.Aspects.Logging.Fabric
       - /Innovian.Aspects.Logging.Testing
+resources:
+  pipelines:
+    - pipeline: Aspects
+      source: Innovian.Aspects.Logging
+      trigger: true
 variables:
-  - name: Version
-    value: $(Build.BuildNumber)
+  Version: $(Build.BuildNumber)
 stages:
 - stage: Build
   jobs:
