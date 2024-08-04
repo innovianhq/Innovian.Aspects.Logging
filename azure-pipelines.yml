@@ -1,0 +1,156 @@
+name: $(date:yyyy.MM.dd)$(rev:.r)
+
+trigger:
+  batch: true
+  branches: 
+    include: 
+      - main
+  paths:
+    include:
+      - /Innovian.Aspects.Logging
+      - /Innovian.Aspects.Logging.Fabric
+      - /Innovian.Aspects.Logging.Testing
+stages:
+- stage: Build
+  variables:
+    Version: $(Build.BuildNumber)
+  jobs:
+  - job:
+    displayName: 'Logging Aspect'
+    workspace:
+      clean: all
+    pool: 
+      name: AzureBuildServers
+      demands: Agent.OS -equals Windows_NT
+    variables:
+      ProjectName: Innovian.Aspects.Logging
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '8.x'
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet restore'
+      inputs:
+        command: 'restore'
+        projects: '**/$(ProjectName).csproj'
+        noCache: true
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build'
+      inputs:
+        command: 'build'
+        projects: '**/$(ProjectName).csproj'
+        arguments: '--no-restore'
+
+    # Aspect testing
+    - task: dotnetcorecli@2
+      displayName: 'dotnet test'
+      inputs:
+        command: 'test'
+        projects: '**/$(ProjectName).Testing.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack'
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/$(ProjectName).csproj'
+        versioningScheme: 'byEnvVar'
+        versionEnvVar: 'Version'
+    
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop-aspect'
+        publishLocation: 'Container'
+  - job:
+    displayName: 'Logging Fabric'
+    workspace:
+      clean: all
+    pool: 
+      name: AzureBuildServers
+      demands: Agent.OS -equals Windows_NT
+    variables:
+      ProjectName: Innovian.Aspects.Logging.Fabric
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '8.x'
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet restore'
+      inputs:
+        command: 'restore'
+        projects: '**/$(ProjectName).csproj'
+        noCache: true
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build'
+      inputs:
+        command: 'build'
+        projects: '**/$(ProjectName).csproj'
+        arguments: '--no-restore'
+
+    # Aspect testing
+    - task: dotnetcorecli@2
+      displayName: 'dotnet test'
+      inputs:
+        command: 'test'
+        projects: '**/$(ProjectName).Testing.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack'
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/$(ProjectName).csproj'
+        versioningScheme: 'byEnvVar'
+        versionEnvVar: 'Version'
+    
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop-fabric'
+        publishLocation: 'Container'
+- stage: Deployment
+  dependsOn: Build
+  jobs:
+  - deployment: NugetDeployment
+    displayName: "Deploying Aspect and Fabric to NuGet"
+    environment: "Public NuGet"
+    pool: 
+      name: AzureBuildServers
+      demands: Agent.OS -equals Windows_NT
+  - job:
+    displayName: Deploying Logging Aspect to NuGet
+    workspace:
+      clean: all
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop-aspect'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: NuGetCommand@2
+      displayName: 'Push to NuGet.org'
+      inputs:
+        command: 'push'
+        packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'external'
+        publishFeedCredentials: 'InnovianNuget'
+  - job:
+    displayName: Deploying Logging Fabric to NuGet
+    workspace:
+      clean: all
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop-fabric'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: NuGetCommand@2
+      displayName: 'Push to NuGet.org'
+      inputs:
+        command: 'push'
+        packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'external'
+        publishFeedCredentials: 'InnovianNuget'
