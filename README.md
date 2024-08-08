@@ -5,10 +5,13 @@
 </a>
 
 #### Innovian.Aspets.Logging
-[![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2Finnovianhq.Innovian.Aspects.Logging?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=334&branchName=main) [![NuGet](https://img.shields.io/nuget/v/Innovian.Aspects.Logging.svg)](https://www.nuget.org/packages/Innovian.Aspects.Logging/)
+ [![NuGet](https://img.shields.io/nuget/v/Innovian.Aspects.Logging.svg)](https://www.nuget.org/packages/Innovian.Aspects.Logging/)
 
-#### Innovian.Aspects.Logging.Fabric 
-[![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2FInnovian.Aspects.Logging.Fabric?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=335&branchName=main) [![NuGet](https://img.shields.io/nuget/v/Innovian.Aspects.Logging.Fabric.svg)](https://www.nuget.org/packages/Innovian.Aspects.Logging.Fabric/)
+#### Innovian.Aspects.Logging.Fabric
+ [![NuGet](https://img.shields.io/nuget/v/Innovian.Aspects.Logging.Fabric.svg)](https://www.nuget.org/packages/Innovian.Aspects.Logging.Fabric/)
+
+ #### Aspect and Fabric package pipeline
+[![Build Status](https://dev.azure.com/innovian/Innovian%20Open%20Source/_apis/build/status%2FMetalama%20Aspects%2FInnovian.Aspects.Logging?branchName=main)](https://dev.azure.com/innovian/Innovian%20Open%20Source/_build/latest?definitionId=338&branchName=main)
 
 This project is provided to the larger open-source community by [Innovian](https://innovian.net).
 
