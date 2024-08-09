@@ -116,8 +116,6 @@ public sealed class LogAttribute : OverrideMethodAspect
 
             if (meta.Target.Method.ReturnType.Is(typeof(void)))
             {
-                
-
                 //When the method is void, display a constant text
                 successMessage.AddText(" succeeded");
             }
@@ -130,7 +128,7 @@ public sealed class LogAttribute : OverrideMethodAspect
                 {
                     successMessage.AddText("an IEnumerable or IEnumerable-derived value");
                 }
-                else if (!meta.Target.Method.ReturnType.ToType().IsPrimitive)
+                else if (!IsPrimitive(meta.Target.Method.ReturnType))
                 {
                     successMessage.AddText("a non-primitive value");
                 }
@@ -173,6 +171,17 @@ public sealed class LogAttribute : OverrideMethodAspect
             }
         }
     }
+
+    /// <summary>
+    /// Determines whether a given type is a primitive or not.
+    /// </summary>
+    /// <param name="type">The type to evaluate.</param>
+    /// <returns>True if the type is primitive, false if not.</returns>
+    private static bool IsPrimitive(IType type) =>
+        type.SpecialType is SpecialType.Boolean or SpecialType.Byte or SpecialType.SByte or SpecialType.Int16
+            or SpecialType.Int32 or SpecialType.Int64 or SpecialType.UInt16 or SpecialType.UInt32 or SpecialType.UInt64
+            or SpecialType.Char or SpecialType.Double or SpecialType.Decimal or SpecialType.Single
+            or SpecialType.String;
 
     /// <summary>
     /// Builds the string detailing how long it took the method to run.
