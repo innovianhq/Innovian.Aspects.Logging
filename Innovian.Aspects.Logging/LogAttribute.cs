@@ -124,11 +124,7 @@ public sealed class LogAttribute : OverrideMethodAspect
                 //When the method has a return value, add to the message
                 successMessage.AddText(" succeeded and returned ");
                 
-                if (meta.Target.Method.ReturnType.Is(SpecialType.IEnumerable))
-                {
-                    successMessage.AddText("an IEnumerable or IEnumerable-derived value");
-                }
-                else if (!IsPrimitive(meta.Target.Method.ReturnType))
+                if (!IsPrimitive(meta.Target.Method.ReturnType))
                 {
                     successMessage.AddText("a non-primitive value");
                 }
@@ -206,8 +202,6 @@ public sealed class LogAttribute : OverrideMethodAspect
     /// <returns></returns>
     private static InterpolatedStringBuilder BuildMessage(bool includeOutParameters = false)
     {
-        //https://github.com/postsharp/Metalama/issues/334
-
         var stringBuilder = new InterpolatedStringBuilder();
 
         stringBuilder.AddText(meta.Target.Type.ToDisplayString(CodeDisplayFormat.MinimallyQualified));
@@ -236,6 +230,10 @@ public sealed class LogAttribute : OverrideMethodAspect
                     : SensitiveAttribute.DefaultReplacementValue;
 
                 stringBuilder.AddText($"{comma}{p.Name} = '{replacementValue}'");
+            }
+            else if (!IsPrimitive(p.Type))
+            {
+                stringBuilder.AddText($"{comma}{p.Name} = <non-primitive type>");
             }
             else
             {
