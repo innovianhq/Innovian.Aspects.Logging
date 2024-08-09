@@ -116,6 +116,8 @@ public sealed class LogAttribute : OverrideMethodAspect
 
             if (meta.Target.Method.ReturnType.Is(typeof(void)))
             {
+                
+
                 //When the method is void, display a constant text
                 successMessage.AddText(" succeeded");
             }
@@ -123,10 +125,14 @@ public sealed class LogAttribute : OverrideMethodAspect
             {
                 //When the method has a return value, add to the message
                 successMessage.AddText(" succeeded and returned ");
-
+                
                 if (meta.Target.Method.ReturnType.Is(SpecialType.IEnumerable))
                 {
                     successMessage.AddText("an IEnumerable or IEnumerable-derived value");
+                }
+                else if (!meta.Target.Method.ReturnType.ToType().IsPrimitive)
+                {
+                    successMessage.AddText("a non-primitive value");
                 }
                 else
                 {
