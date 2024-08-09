@@ -122,8 +122,18 @@ public sealed class LogAttribute : OverrideMethodAspect
             else
             {
                 //When the method has a return value, add to the message
-                successMessage.AddText(" succeeded and returned '");
-                successMessage.AddExpression(result);
+                successMessage.AddText(" succeeded and returned ");
+
+                if (meta.Target.Method.ReturnType.Is(SpecialType.IEnumerable))
+                {
+                    successMessage.AddText("an IEnumerable or IEnumerable-derived value");
+                }
+                else
+                {
+                    successMessage.AddText("'");
+                    successMessage.AddExpression(result);
+                }
+
                 successMessage.AddText("'");
             }
 
