@@ -21,10 +21,10 @@ public sealed class InjectLoggerFactoryAttribute : ConstructorAspect
             //Must be explicitly declared
             _ => builder.MustBeExplicitlyDeclared(),
             //Must not be static
-            _ => builder.MustSatisfy(t => !t.IsStatic, n => $"The method cannot be static"),
+            _ => builder.MustSatisfy(t => !t.IsStatic, n => $"The type {n} cannot be static"),
             //Must not be a record type
             _ => builder.DeclaringType().MustSatisfy(t => t.TypeKind is not (TypeKind.RecordStruct or TypeKind.RecordClass),
-                x => $"The declaring type must not be a record"));
+                x => $"The declaring type {x} must not be a record"));
     }
 
     public override void BuildAspect(IAspectBuilder<IConstructor> builder)
