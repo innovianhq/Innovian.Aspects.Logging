@@ -110,7 +110,6 @@ public sealed class LogAttribute : OverrideMethodAspect
         {
             var result = meta.Proceed();
 
-            // https://github.com/postsharp/Metalama/issues/334
             //Display the success message - this message varies when the return is void
             var successMessage = BuildMessage();
 
@@ -256,8 +255,5 @@ public sealed class LogAttribute : OverrideMethodAspect
     /// </summary>
     /// <param name="parameter"></param>
     /// <returns></returns>
-    private static bool IsSensitive(IParameter parameter)
-    {
-        return parameter.Attributes.OfAttributeType(typeof(SensitiveAttribute)).Any();
-    }
+    private static bool IsSensitive(IParameter parameter) => parameter.Attributes.OfAttributeType(typeof(SensitiveAttribute)).Any();
 }
