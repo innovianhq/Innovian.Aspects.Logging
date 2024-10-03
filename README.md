@@ -25,6 +25,11 @@ The attribute performs the following:
 - Injects and instantiates an `ILogger` as a private field on the class from the `ILoggerFactory` or from a `NullLoggerFactory` instance if the injected `ILoggerFactory` is null
 - Creates a stopwatch in each method that times and records, via the `ILogger` field, how long it takes a given method to execute
 
+### Metalama License
+The team at [Postsharp](https://www.postsharp.net/) were kind enough to grant this project an open source license, meaning that it does not require a commercial license to add to your project.
+They cover this in the "Redistribution" portion of their [FAQ](https://www.postsharp.net/metalama/pricing/faq). I've purchased a commercial license for their software for my own company to use and if this
+project adds sufficient value to your own software, I highly encourage you to purchase licenses for you and your own team and support this initiave and their generous support for open source projects.
+
 ## Direct usage of the attribute
 The following instructions detail how to use the `InjectLoggerAttribute` directly in those project. It's intended to be applied as an attribute to any classes (not records) in your project and will automatically apply the other attributes
 in the project. Direct usage of these other attributes isn't intended.
