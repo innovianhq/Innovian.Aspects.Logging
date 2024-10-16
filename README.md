@@ -26,10 +26,11 @@ The attribute performs the following:
 - Creates a stopwatch in each method that times and records, via the `ILogger` field, how long it takes a given method to execute
 
 ### Metalama License
-The team at [Postsharp](https://www.postsharp.net/) were kind enough to grant this project an open source license, meaning that it does not require a commercial license to add to your project.
-They cover this in the "Redistribution" portion of their [FAQ](https://www.postsharp.net/metalama/pricing/faq). We at Innovian have purchased a commercial license for Metalama that allows 
-us to create and build aspects like this and others. If this project adds sufficient value to your own software, I would highly encourage you to purchase licenses for you and your own team 
-and support the Postsharp team and their generous support for open source projects.
+The team at [Postsharp](https://www.postsharp.net/) were kind enough to grant this project an open source license meaning that this namespace can be built with any number of aspects without a Metalama license.
+However, you will a Metalama license to use this in your own project. Their [free license](https://www.postsharp.net/metalama/pricing) allows up to 3 aspects at no cost. I've purchased a commercial license for their software for use at my own company and if you
+similarly find that this aspects adds sufficient value to your own work, I encourage you to purchase licenses for your own team.
+
+*Note*: The `Innovian.Aspects.Logging` project can be used with the free plan by decorating each class with `[InjectLogger]`, but you'll need the cheapest paid plan to support the Fabric (automatic project-wide aspect decorating) used in `Innovian.Aspects.Logging.Fabric` as Fabrics are not supported in the free license.
 
 ## Direct usage of the attribute
 The following instructions detail how to use the `InjectLoggerAttribute` directly in those project. It's intended to be applied as an attribute to any classes (not records) in your project and will automatically apply the other attributes
