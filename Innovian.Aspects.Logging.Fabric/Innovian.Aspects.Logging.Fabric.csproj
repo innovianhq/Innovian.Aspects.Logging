@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Product>Logging Aspects</Product>
 		<Company>Innovian</Company>
 		<Authors>Whit Waldo</Authors>
-		<Copyright>© 2024 Innovian Corporation</Copyright>
+		<Copyright>© 2025 Innovian Corporation</Copyright>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/innovianhq/Innovian.Aspects.Logging</PackageProjectUrl>
